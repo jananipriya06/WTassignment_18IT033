@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<title>Add post</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
+body {font-family: "Open Sans"}
+</style>
+<body class="w3-light-grey">
+
+<!-- Navigation bar with social media icons -->
+<div class="w3-bar w3-black w3-hide-small">
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-facebook-official"></i></a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-instagram"></i></a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-snapchat"></i></a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-flickr"></i></a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-twitter"></i></a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-linkedin"></i></a>
+
+</div>
+  
+<!-- w3-content defines a container for fixed size centered content, 
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1600px">
+
+  <!-- Header -->
+  <header class="w3-container w3-center w3-padding-48">
+    <h1 class="w3-xxxlarge"><b>Knowledge space</b></h1>
+    <h6><span class="w3-tag">Techie's world</span></h6>
+  </header>
+
+  <!-- Image header -->
+  <header class="w3-display-container w3-wide" id="home">
+   
+  </header>
+
+  <!-- Grid -->
+  <div class="w3-row w3-padding w3-border">
+
+
+    
+    
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+    <script type="text/javascript">
+     
+       var app =  angular.module('MyApp', []);
+        app.controller('MyController', function ($scope, $window) {
+            $scope.posts = [
+                { PostID: "24",Title: "Python Fast input Methods", Date: "Oct 1, 2020",Topic:"Python"},
+                { PostID: "27",Title: "Transpose of a matrix", Date: "April 23, 2020" ,Topic:"Python"},
+				{ PostID: "13",Title: "Python Zip method", Date: "Sep 11, 2020" ,Topic:"Python"},
+				{ PostID: "57",Title: "Antigravity", Date: "Sep 30, 2020" ,Topic:"Python"},
+				{ PostID: "76",Title: "Image Processing", Date: "May 12, 2020" ,Topic:"Neural Networks"},
+				{ PostID: "33",Title: "Data preprocessing", Date: "June 17, 2020" ,Topic:"Machine Learning"},
+                ];
+ 
+            $scope.Add = function () {
+                //Add the new item to the Array.
+                var post = {};
+				post.PostID = $scope.PostID;
+                post.Title = $scope.Title;
+                post.Date = $scope.Date;
+                post.Topic = $scope.Topic;
+                $scope.posts.push(post);
+ 
+                //Clear the TextBoxes.
+                $scope.Title = "";
+                $scope.Date = "";
+                $scope.Topic = "";
+				$scope.Content ="";
+                };
+ 
+            $scope.Remove = function (index) {
+                //Find the record using Index from Array.
+                var title = $scope.posts[index].Title;
+                if ($window.confirm("Do you want to delete: " + title)) {
+                    //Remove the item from Array using Index.
+                    $scope.posts.splice(index, 1);
+                }
+            }
+            $scope.length = '';
+ $scope.getLength = function() {
+     $scope.length = $scope.posts.length;
+	 
+ };
+ }
+ 
+ 
+ );  
+ 
+
+  
+    </script>
+
+    <div ng-app="MyApp" ng-controller="MyController">
+	        <h3>Your posts</h3>
+
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+				<th>PostID</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Topic</th>
+                <th></th>
+            </tr>
+            <tbody ng-repeat="p in posts">
+                <tr>
+                    <td>{{p.PostID}}</td>
+					<td>{{p.Title}}</td>
+                    <td>{{p.Date}}</td>
+                    <td>{{p.Topic}}</td>
+                    <td><input type="button" ng-click="Remove($index)" value="Remove" /></td>
+                </tr>
+            </tbody>
+			</table>
+			<h3>Add new post</h3>
+			
+				<p>PostID</p><input type="text" ng-model="PostID" />
+                <p>Title</p><input type="text" ng-model="Title" />
+                <p>Date</p><input type="text" ng-model="Date" />
+                <p>Topic</p><input type="text" ng-model="Topic" />
+                <p>Content</p><input type="textarea" ng-model="Content" ng-keypress="kp1=kp1+1" >
+            
+                    
+					 <td>Length of String Entered: {{kp1}}
+					
+                    <input type="button" ng-click="Add()" value="Add" />
+             
+
+        <h3>Search your previous posts</h3>
+        Filter by 
+        Topic : <input type="text" ng-model="topicfilter" />
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Topic</th>
+            </tr>
+            <tr ng-repeat="p in posts | filter: { Topic :topicfilter }">
+								<td>{{p.Title}}</td>
+								<td>{{p.Date}}</td>
+								<td>{{p.Topic}}</td>
+                <td ng-bind="p.topicfilter">{{p.Topic}}</td>
+            </tr>
+        </table>
+  
+          <br>
+          <button ng-click="getLength()"> Total Number of posts</button>
+           <p>{{length}}</p>
+         
+      <br>
+   
+ 
+      
+    <!-- END BLOG ENTRIES -->
+    </div>
+
+
+
+  <!-- END GRID -->
+  </div>
+
+<!-- END w3-content -->
+</div>
+
+
+
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey" style="padding:32px">
+  <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+</footer>
+
+<script>
+
+
+// Toggle between hiding and showing blog replies/comments
+document.getElementById("myBtn").click();
+function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+function likeFunction(x) {
+  x.style.fontWeight = "bold";
+  x.innerHTML = "✓ Liked";
+}
+</script>
+
+</body>
+</html>
